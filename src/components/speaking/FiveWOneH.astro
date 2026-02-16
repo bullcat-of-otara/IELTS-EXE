@@ -1,0 +1,34 @@
+---
+const folders = [
+  { label: 'WHO', color: 'text-neon-cyan', border: 'border-neon-cyan', tip: 'Focus on People & Roles. Is it a friend, expert, or public figure?' },
+  { label: 'WHAT', color: 'text-neon-pink', border: 'border-neon-pink', tip: 'Describe the Object or Action. What does it look like? What happens?' },
+  { label: 'WHERE', color: 'text-neon-green', border: 'border-neon-green', tip: 'Set the Scene. Is it indoors/outdoors? Busy/Quiet? Atmosphere?' },
+  { label: 'WHEN', color: 'text-yellow-400', border: 'border-yellow-400', tip: 'Timeframe. Past, Present, or Future? How frequently?' },
+  { label: 'WHY', color: 'text-purple-400', border: 'border-purple-400', tip: 'Reasons & Motivations. This adds DEPTH to your answer.' },
+  { label: 'HOW', color: 'text-orange-400', border: 'border-orange-400', tip: 'Process & Method. Explain the steps or feelings involved.' },
+];
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+  {folders.map((folder) => (
+    <div class={`bg-slate-900 border-4 ${folder.border} p-6 relative overflow-hidden group hover:bg-slate-800 transition-colors shadow-[4px_4px_0_rgba(0,0,0,0.5)] h-full flex flex-col`}>
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-4 border-b-2 border-slate-700 pb-2">
+        <h3 class={`font-press-start text-2xl ${folder.color} text-glow-cyan`}>
+          {folder.label}
+        </h3>
+        <span class="font-arcade text-slate-500 text-sm">DATA_BLOCK</span>
+      </div>
+
+      <!-- Content -->
+      <div class="flex-grow">
+        <p class="font-vt323 text-xl text-white leading-relaxed">
+          {folder.tip}
+        </p>
+      </div>
+
+      <!-- Corner Accent -->
+      <div class={`absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 ${folder.border} opacity-50`}></div>
+    </div>
+  ))}
+</div>

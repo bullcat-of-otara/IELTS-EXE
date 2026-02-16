@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-arcade: 'VT323', monospace;
+  --font-press-start: 'Press Start 2P', cursive;
+
+  --color-neon-cyan: #00f3ff;
+  --color-neon-indigo: #6366f1;
+  --color-neon-pink: #FF69B4;
+  --color-neon-green: #39ff14;
+  --color-background: #0f172a; /* slate-900 */
+}
+
+/* Custom Utilities */
+@utility text-glow-cyan {
+  text-shadow: 0 0 10px var(--color-neon-cyan), 0 0 20px var(--color-neon-cyan);
+}
+
+@utility text-glow-indigo {
+  text-shadow: 0 0 10px var(--color-neon-indigo), 0 0 20px var(--color-neon-indigo);
+}
+
+@utility text-glow-pink {
+  text-shadow: 0 0 5px var(--color-neon-pink), 0 0 10px var(--color-neon-pink);
+}
+
+@utility text-glow-green {
+  text-shadow: 0 0 5px var(--color-neon-green), 0 0 10px var(--color-neon-green);
+}
+
+@utility animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+body {
+  background-color: var(--color-background);
+  color: #f1f5f9; /* slate-100 */
+  font-family: var(--font-sans);
+}
+
+/* 8-bit Cursor Effect */
+.cursor-pointer-8bit {
+  position: relative;
+}
+
+.cursor-pointer-8bit::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2339ff14"><path d="M4 12l10-10v8h6v4h-6v8z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.2s, left 0.2s;
+  pointer-events: none;
+}
+
+.cursor-pointer-8bit:hover::before,
+.cursor-pointer-8bit:focus-within::before {
+  opacity: 1;
+  left: -32px;
+}

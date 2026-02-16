@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FiveWOneH from "../../components/speaking/FiveWOneH.astro";
+---
+
+<Layout title="IELTS.EXE | 5W1H Database">
+    <div class="content-section p-8 md:p-12">
+        <div class="max-w-7xl mx-auto">
+            <header class="mb-12 border-b-4 border-slate-800 pb-8">
+                <h1
+                    class="text-4xl md:text-6xl font-arcade text-white text-glow-indigo uppercase"
+                >
+                    THE 5W1H <span class="text-neon-pink">KNOWLEDGE</span> DATABASE
+                </h1>
+                <p
+                    class="text-slate-400 font-arcade text-xl mt-2 uppercase tracking-wide"
+                >
+                    Get familiar with common speaking topics.
+                </p>
+            </header>
+
+            <div class="mb-12 text-center max-w-2xl mx-auto">
+                <p class="font-vt323 text-2xl text-slate-300">
+                    Quickly form a comphrensive picture of the topic by
+                    researching the five Ws and one H.
+                </p>
+            </div>
+
+            <FiveWOneH />
+        </div>
+    </div>
+</Layout>

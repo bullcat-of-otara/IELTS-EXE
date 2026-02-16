@@ -1,0 +1,100 @@
+---
+---
+
+<div
+    class="border-4 border-slate-700 bg-slate-900 p-6 shadow-[8px_8px_0_rgba(0,0,0,0.5)] relative"
+>
+    <!-- Cabinet Header -->
+    <div
+        class="absolute -top-5 left-1/2 -translate-x-1/2 bg-slate-800 border-2 border-slate-600 px-4 py-1"
+    >
+        <h3 class="font-arcade text-white text-lg tracking-widest uppercase">
+            SYS_CALIBRATION
+        </h3>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-4 mb-6">
+        {
+            ["LISTENING", "READING", "WRITING", "SPEAKING"].map((skill) => (
+                <div class="flex flex-col">
+                    <label class="font-vt323 text-neon-green text-xl mb-1">
+                        {skill}
+                    </label>
+                    <input
+                        type="number"
+                        min="0"
+                        max="9"
+                        step="0.5"
+                        class="bg-black border-2 border-neon-green text-white font-press-start text-center py-2 focus:outline-none focus:shadow-[0_0_10px_#39ff14] skill-input"
+                        placeholder="0.0"
+                    />
+                </div>
+            ))
+        }
+    </div>
+
+    <div class="mt-4 pt-4 border-t-2 border-dashed border-slate-700">
+        <div class="text-center">
+            <p class="font-vt323 text-slate-400 text-lg mb-2">
+                OVERALL BAND SCORE
+            </p>
+            <div
+                class="inline-block bg-black border-4 border-neon-pink px-8 py-4 shadow-[0_0_15px_rgba(255,105,180,0.5)]"
+            >
+                <span
+                    id="overall-score"
+                    class="font-press-start text-4xl text-neon-pink text-glow-pink"
+                    >0.0</span
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const inputs = document.querySelectorAll(".skill-input");
+    const display = document.getElementById("overall-score");
+
+    function calculateScore() {
+        let total = 0;
+        let count = 0;
+
+        inputs.forEach((input) => {
+            const val = parseFloat((input as HTMLInputElement).value);
+            if (!isNaN(val) && val >= 0 && val <= 9) {
+                total += val;
+                count++;
+            }
+        });
+
+        if (count === 4) {
+            const avg = total / 4;
+            const decimal = avg % 1;
+            let finalScore = Math.floor(avg);
+
+            if (decimal < 0.25) {
+                finalScore += 0;
+            } else if (decimal < 0.75) {
+                finalScore += 0.5;
+            } else {
+                finalScore += 1;
+            }
+
+            if (display && display.parentElement) {
+                display.textContent = finalScore.toFixed(1);
+                display.parentElement.classList.add("animate-pulse");
+                setTimeout(() => {
+                    if (display.parentElement) {
+                        display.parentElement.classList.remove("animate-pulse");
+                    }
+                }, 500);
+            }
+        } else {
+            if (display) {
+                display.textContent = "0.0";
+            }
+        }
+    }
+
+    inputs.forEach((input) => input.addEventListener("input", calculateScore));
+</script>

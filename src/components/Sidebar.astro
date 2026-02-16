@@ -1,0 +1,101 @@
+---
+const { pathname } = Astro.url;
+
+const navItems = [
+  { label: "HOME", href: "/", type: "link" },
+  { label: "SPEAKING", type: "heading" },
+  { label: "- PART 1", href: "/speaking/part-1", type: "sublink" },
+  { label: "- PART 2", href: "/speaking/part-2", type: "sublink" },
+  { label: "- PART 3", href: "/speaking/part-3", type: "sublink" },
+  {
+    label: "- 5W1H DATABASE",
+    href: "/speaking/5w1h-database",
+    type: "sublink",
+  },
+
+  { label: "WRITING", type: "heading" },
+  { label: "- TASK 1", href: "/writing/task-1", type: "sublink" },
+  { label: "- TASK 2", href: "/writing/task-2", type: "sublink" },
+];
+---
+
+<aside
+  class="w-64 bg-slate-900 border-r-4 border-slate-800 flex flex-col h-full fixed left-0 top-0 overflow-y-auto font-arcade z-50 shadow-[4px_0_15px_rgba(0,0,0,0.5)]"
+>
+  <div class="p-6 border-b-4 border-slate-800 bg-slate-950">
+    <h1
+      class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neon-green to-neon-cyan leading-none tracking-widest text-glow-green"
+    >
+      IELTS<br />.EXE
+    </h1>
+    <div class="mt-2 text-xs text-slate-500 uppercase tracking-widest">
+      Console v1.2
+    </div>
+  </div>
+
+  <nav class="flex-grow p-4 space-y-1">
+    {
+      navItems.map((item) => {
+        if (item.type === "heading") {
+          return (
+            <div class="mt-6 mb-2 px-4 text-xl font-bold text-neon-pink text-glow-pink tracking-widest uppercase">
+              {item.label}
+            </div>
+          );
+        }
+
+        const isActive =
+          item.href === pathname ||
+          (item.href !== "/" && item.href && pathname.startsWith(item.href));
+        const baseClasses =
+          "block w-full text-left py-2 transition-all duration-200 group uppercase tracking-widest flex items-center gap-2 relative overflow-hidden font-vt323 text-lg";
+        const activeClasses =
+          "text-neon-green bg-slate-800/50 border-r-4 border-neon-green";
+        const inactiveClasses =
+          "text-slate-400 hover:text-neon-cyan hover:bg-slate-800/30 border-r-4 border-transparent";
+        const indentClass = item.type === "sublink" ? "pl-8" : "pl-4";
+
+        return (
+          <a
+            href={item.href}
+            class={`${baseClasses} ${indentClass} ${
+              isActive ? activeClasses : inactiveClasses
+            }`}
+          >
+            {/* Cursor */}
+            <span
+              class={`absolute left-1 text-neon-green transition-opacity duration-200 ${
+                isActive
+                  ? "opacity-100 animate-blink"
+                  : "opacity-0 group-hover:opacity-50"
+              }`}
+            >
+              &gt;
+            </span>
+
+            {/* Label */}
+            <span class="relative z-10 flex items-center gap-2">
+              {item.label.replace("- ", "")}{" "}
+              {/* Strip prefix for cleaner DOM if visual indent handles it, or keep it. Let's keep consistent text content but clean up display if needed. Actually the requested text was "Part 1" etc, so I'll render label directly but arguably the '-' in my data above was for my own visual check. Let's clean it. */}
+            </span>
+
+            {/* 8-bit Hand Cursor for Active/Hover - optional extra visual */}
+            {isActive && (
+              <div class="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%2339ff14%22><path d=%22M4 12l10-10v8h6v4h-6v8z%22/></svg>')] bg-contain bg-no-repeat animate-pulse" />
+            )}
+          </a>
+        );
+      })
+    }
+  </nav>
+
+  <div class="p-4 border-t-4 border-slate-800 bg-slate-950 text-center">
+    <div class="text-xs text-slate-600 mb-2 uppercase">System Status</div>
+    <div
+      class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900 border border-neon-green/30 rounded text-neon-green text-sm"
+    >
+      <span class="w-2 h-2 bg-neon-green rounded-full animate-blink"></span>
+      ONLINE
+    </div>
+  </div>
+</aside>
