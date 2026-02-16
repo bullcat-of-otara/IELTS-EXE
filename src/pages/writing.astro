@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const allWriting = await getCollection("writing");
+const base = import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL;
 ---
 
 <Layout title="IELTS.EXE | Writing Hub">
@@ -51,7 +52,10 @@ const allWriting = await getCollection("writing");
                   )}
                 </div>
 
-                <a href={`/writing/${post.slug}`} class="block flex-grow">
+                <a
+                  href={`${base}/writing/${post.slug}`}
+                  class="block flex-grow"
+                >
                   <h2 class="text-xl font-bold mb-3 text-slate-100 group-hover:text-neon-cyan transition-colors leading-tight">
                     {post.data.title}
                   </h2>

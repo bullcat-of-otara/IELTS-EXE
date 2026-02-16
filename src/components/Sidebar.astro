@@ -1,21 +1,42 @@
 ---
 const { pathname } = Astro.url;
+const base = import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL;
 
 const navItems = [
-  { label: "HOME", href: "/", type: "link" },
+  { label: "HOME", href: base || "/", type: "link" },
   { label: "SPEAKING", type: "heading" },
-  { label: "- PART 1", href: "/speaking/part-1", type: "sublink" },
-  { label: "- PART 2", href: "/speaking/part-2", type: "sublink" },
-  { label: "- PART 3", href: "/speaking/part-3", type: "sublink" },
+  {
+    label: "- PART 1",
+    href: `${base}/speaking/part-1`,
+    type: "sublink",
+  },
+  {
+    label: "- PART 2",
+    href: `${base}/speaking/part-2`,
+    type: "sublink",
+  },
+  {
+    label: "- PART 3",
+    href: `${base}/speaking/part-3`,
+    type: "sublink",
+  },
   {
     label: "- 5W1H DATABASE",
-    href: "/speaking/5w1h-database",
+    href: `${base}/speaking/5w1h-database`,
     type: "sublink",
   },
 
   { label: "WRITING", type: "heading" },
-  { label: "- TASK 1", href: "/writing/task-1", type: "sublink" },
-  { label: "- TASK 2", href: "/writing/task-2", type: "sublink" },
+  {
+    label: "- TASK 1",
+    href: `${base}/writing/task-1`,
+    type: "sublink",
+  },
+  {
+    label: "- TASK 2",
+    href: `${base}/writing/task-2`,
+    type: "sublink",
+  },
 ];
 ---
 
@@ -46,7 +67,9 @@ const navItems = [
 
         const isActive =
           item.href === pathname ||
-          (item.href !== "/" && item.href && pathname.startsWith(item.href));
+          (item.href !== (base || "/") &&
+            item.href &&
+            pathname.startsWith(item.href));
         const baseClasses =
           "block w-full text-left py-2 transition-all duration-200 group uppercase tracking-widest flex items-center gap-2 relative overflow-hidden font-vt323 text-lg";
         const activeClasses =
